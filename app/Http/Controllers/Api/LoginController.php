@@ -25,6 +25,7 @@ class LoginController extends Controller
         if ($validator->fails()) {
             return ['code' => -1, 'data' => 'no valid data', 'msg' => $validator->errors()->first()];
         }
+       try{
         $Validated = $validator->validated();
         $map = [];
         $map['type'] = $Validated['type'];
@@ -68,5 +69,9 @@ class LoginController extends Controller
       
             return ['code' => 1, 'data' => $result, 'msg' => 'user information updated'];
         }
+       }catch(Exception $e){
+        return ['code' => 1, 'data' => "No data found", 'msg' => (string)$e];
+      
+       }
     }
 }
